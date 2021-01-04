@@ -1,6 +1,7 @@
 package db
 
 import (
+	"ccs/config"
 	"database/sql"
 	"fmt"
 	"log"
@@ -17,7 +18,13 @@ var (
 //Init 初始化数据库连接
 func Init() {
 
-	sqlInfo := "root:123456@tcp(106.52.211.246:3306)/database3?charset=utf8"
+	sqlInfo := fmt.Sprintf(
+		"%s:%s@tcp(%s:%d)/%s?charset=utf8",
+		config.MYSQL_USER,
+		config.MYSQL_PASSWORD,
+		config.MYSQL_HOST,
+		config.MYSQL_PORT,
+		config.DATABASE)
 	DB, err = sql.Open("mysql", sqlInfo)
 	if err != nil {
 		log.Fatal(err.Error())
