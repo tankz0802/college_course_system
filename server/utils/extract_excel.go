@@ -4,6 +4,7 @@ import (
 	"ccs/model"
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
+	"strconv"
 	"strings"
 )
 
@@ -47,13 +48,15 @@ func search(text []rune, what string) int {
 	return -1
 }
 
-func extractExcel(path string) {
+func extractExcel(path string) *TeacherCourse {
 	xls, err := excelize.OpenFile(path)
 	if err != nil {
 		fmt.Println(err)
-		return
+		return nil
 	}
 	table := xls.GetRows("Sheet0")
+	tc := &TeacherCourse{}
+
 	for i, row := range table {
 		for j, col := range row {
 			colTrim := strings.ReplaceAll(col, " ", "")
@@ -69,6 +72,10 @@ func extractExcel(path string) {
 				teacherId := string(colRune[teacherIdStart+4:])
 				fmt.Println("任课老师:", teacherName)
 				fmt.Println("教工号:", teacherId)
+				tc.Teacher.Id, _  = strconv.ParseInt(teacherId, 10, 64)
+				tc.Teacher.Name = teacherName
+				tc.Teacher.Password = Sha256(teacherId)
+				tc.Teacher.Title = 3
 			}else if i >=2 && j >= 2 {
 				courseInfos := strings.Split(colTrim, "/")
 				// 课程名称
@@ -99,8 +106,7 @@ func extractExcel(path string) {
 }
 
 type TeacherCourse struct {
-	TeacherName string `json:"teacher_name"`
-	TeacherId int64 `json:"teacher_id"`
+	Teacher *model.Teacher
 	TeacherCourseList []*model.Course `json:"teacher_course_list"`
 }
 

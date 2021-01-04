@@ -6,7 +6,7 @@ import (
 )
 
 type Course struct {
-	Id int64 `json:"id"`
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Duration int32 `json:"duration"`
 	Credit int32 `json:"credit"`
