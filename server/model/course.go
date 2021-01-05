@@ -10,7 +10,7 @@ type Course struct {
 	Name string `json:"name"`
 	Duration int32 `json:"duration"`
 	Credit int32 `json:"credit"`
-	Category int32 `json:"category"`
+	Category string `json:"category"`
 	Num int32 `json:"num"`
 }
 

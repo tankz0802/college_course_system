@@ -5,11 +5,11 @@ import "ccs/db"
 type CourseSchedule struct {
 	Id int64 `json:"id"`
 	CId string `json:"cid"`
-	WeekStart int32 `json:"week_start"`
-	WeekEnd int32 `json:"week_end"`
-	Day int32 `json:"day"`
-	Start int32 `json:"start"`
-	End int32 `json:"end"`
+	WeekStart int `json:"week_start"`
+	WeekEnd int `json:"week_end"`
+	Day int `json:"day"`
+	Start int `json:"start"`
+	End int `json:"end"`
 	TId int64 `json:"tid"`
 }
 
