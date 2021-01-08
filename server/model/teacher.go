@@ -8,15 +8,15 @@ import (
 type Teacher struct {
 	Id int64 `json:"id"`
 	Name string `json:"name"`
-	Title int64 `json:"title"`
 	Password string `json:"password"`
+	Title int64 `json:"title"`
 }
 
 func (t *Teacher) TeacherIsExists() bool {
-	sql := "select id from teacher where id=?"
-	var id int64
-	_ = db.DB.QueryRow(sql, t.Id).Scan(&id)
-	if id > 0 {
+	sql := "select name from teacher where id=?"
+	var name string
+	_ = db.DB.QueryRow(sql, t.Id).Scan(&name)
+	if name != "" {
 		return true
 	}
 	return false
@@ -24,7 +24,7 @@ func (t *Teacher) TeacherIsExists() bool {
 
 func (t *Teacher) Add() error {
 	sql := "insert into teacher values(?,?,?,?)"
-	_, err := db.DB.Exec(sql, t.Id, t.Name, t.Title, t.Password)
+	_, err := db.DB.Exec(sql, t.Id, t.Name, t.Password, t.Title)
 	if err != nil {
 		log.Println(err.Error())
 		return err
@@ -33,9 +33,9 @@ func (t *Teacher) Add() error {
 }
 
 func (t *Teacher) CheckPassword() bool {
-	sql := "select password from teacher where id=?"
+	sql := "select name,password,title from teacher where id=?"
 	var password string
-	_ = db.DB.QueryRow(sql, t.Id).Scan(&password)
+	_ = db.DB.QueryRow(sql, t.Id).Scan(&t.Name, &password, &t.Title)
 	if t.Password == password {
 		return true
 	}
@@ -50,4 +50,24 @@ func (t *Teacher) UpdateTitle(title int64) error {
 		return err
 	}
 	return nil
+}
+
+func GetAllTeacher() []*Teacher {
+	sql := "select id,name from teacher"
+	rows, err := db.DB.Query(sql)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	teacherList := make([]*Teacher, 0)
+	for rows.Next() {
+		teacher := &Teacher{}
+		if err := rows.Scan(teacher.Id, teacher.Name); err != nil {
+			log.Println(err)
+			return nil
+		}
+		teacherList = append(teacherList, teacher)
+	}
+	return teacherList
 }

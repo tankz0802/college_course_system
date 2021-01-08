@@ -1,0 +1,47 @@
+.body {
+  overflow-y: auto;
+  padding: 40px;
+}
+.body .loading {
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body table {
+  border-collapse: collapse;
+}
+.body table tr th {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 5px;
+}
+.body table,
+.body table tr td {
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.body table button,
+.body table tr td button {
+  border: none;
+  color: #fff;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+  outline: none;
+}
+.body table button.select,
+.body table tr td button.select {
+  background-color: #2ed573;
+}
+.body table button.cancel,
+.body table tr td button.cancel {
+  background-color: #ff4757;
+}
+.body table tr td {
+  padding: 5px 20px;
+}
+.body tr:not(:first-child):hover {
+  background-color: #eee;
+  cursor: pointer;
+}

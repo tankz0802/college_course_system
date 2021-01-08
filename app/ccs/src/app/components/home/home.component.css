@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.body {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.body .routes {
+  min-height: 100vh;
+  background-color: #304156;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.body .routes ul {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 0px;
+}
+.body .routes ul i {
+  width: 60px;
+  text-align: center;
+  color: #bfcbd9;
+}
+.body .routes ul div {
+  width: 0px;
+  color: #bfcbd9;
+}
+.body .routes ul:hover {
+  background-color: #222f3e;
+}
+.body .routes ul.selected div {
+  color: #1e90ff;
+}
+.body .routes ul.selected i {
+  color: #1e90ff;
+}
+.body .content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+.body .content header {
+  height: 50px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  width: 100%;
+}
+.body .content header button.pop {
+  width: 40px;
+  height: 100%;
+  background-color: #fff;
+  outline: none;
+  border: none;
+}
+.body .content header button.pop:hover {
+  background-color: #eee;
+}
+.body .content main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.body.pop-out .routes > ul > div {
+  width: 150px;
+}
+.body.pop-out .content {
+  margin-left: 211px;
+  width: calc(100vw - 211px);
+}
+.body.pop-in {
+  width: 100vw;
+}
+.body.pop-in .routes > ul > div {
+  width: 0px;
+}
+.body.pop-in .content {
+  margin-left: 61px;
+  width: calc(100vw - 61px);
+}

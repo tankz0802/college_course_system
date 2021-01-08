@@ -28,3 +28,23 @@ func (c *Class) Add() {
 		log.Println(err.Error())
 	}
 }
+
+func GetClassList() ([]*Class,error) {
+	sql := "select id,name from class"
+	rows, err := db.DB.Query(sql)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err.Error())
+		return nil, err
+	}
+	classList := make([]*Class, 0)
+	for rows.Next() {
+		class  := &Class{}
+		if err := rows.Scan(&class.Id, &class.Name); err != nil {
+			log.Println(err.Error())
+			return nil ,err
+		}
+		classList = append(classList, class)
+	}
+	return classList, nil
+}

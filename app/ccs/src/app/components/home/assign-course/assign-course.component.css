@@ -1,0 +1,163 @@
+.body {
+  width: 100%;
+  margin: 40px 0px;
+}
+.body .shadow {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+.body table {
+  border-collapse: collapse;
+}
+.body table th,
+.body table td {
+  border: 1px solid #ccc;
+  padding: 5px 20px;
+  font-size: 15px;
+  text-align: center;
+}
+.body table th div,
+.body table td div {
+  width: 100px;
+  font-size: 15px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body table th div input,
+.body table td div input {
+  font-size: 15px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border: 1px solid #00a8ff;
+}
+.body table th div.course-name,
+.body table td div.course-name {
+  width: 200px;
+}
+.body table th div.course-number,
+.body table td div.course-number {
+  width: 50px;
+}
+.body table th div.option,
+.body table td div.option {
+  width: 250px;
+}
+.body table th div.option button,
+.body table td div.option button {
+  padding: 2px 5px;
+  border: none;
+  outline: none;
+  color: #fff;
+  margin: 5px;
+  cursor: pointer;
+}
+.body table th div.option button.edit,
+.body table td div.option button.edit {
+  background-color: #2ed573;
+}
+.body table th div.option button.confirm-edit,
+.body table td div.option button.confirm-edit {
+  background-color: #1e90ff;
+}
+.body table th div.option button.assign-course,
+.body table td div.option button.assign-course {
+  background-color: #ff7f50;
+}
+.body .assign-course-modal {
+  width: 600px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  border-radius: 3px;
+}
+.body .assign-course-modal .modal-header {
+  height: 35px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.body .assign-course-modal .modal-header i {
+  margin-right: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
+.body .assign-course-modal .assign-rule {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: pointer;
+  margin-top: 10px;
+  min-height: 200px;
+  margin-bottom: 10px;
+}
+.body .assign-course-modal .assign-rule div.preference {
+  width: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+.body .assign-course-modal .assign-rule div.preference > div span {
+  height: 30px;
+  line-height: 30px;
+  width: 65px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+.body .assign-course-modal .assign-rule div.preference ul li {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  height: 30px;
+  border-top: 1px solid #ccc;
+  align-items: center;
+}
+.body .assign-course-modal .assign-rule div.preference ul li span {
+  width: 65px;
+  margin-left: 10px;
+}
+.body .assign-course-modal .assign-rule div.preference ul li i {
+  color: #2ed573;
+}
+.body .assign-course-modal .assign-rule div.preference span {
+  width: 100%;
+}
+.body .assign-course-modal .modal-footer {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+.body .assign-course-modal .modal-footer button {
+  height: 25px;
+  width: 70px;
+  color: #fff;
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.body .assign-course-modal .modal-footer button:nth-of-type(1) {
+  background-color: #00a8ff;
+}
+.body .assign-course-modal .modal-footer button:nth-of-type(2) {
+  background-color: #ff4757;
+}

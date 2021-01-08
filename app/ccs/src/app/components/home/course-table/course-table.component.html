@@ -1,0 +1,220 @@
+<div class="body">
+  <!-- <div class="col-md-12 table-responsive" #epltable>
+    <div style="padding-bottom: 10px; padding-top: 10px">
+      <div class="row">
+        <div class="col-sm-12">
+          <button (click)="exportToExcel()" class="btn btn-success">
+            Export To Excel
+          </button>
+        </div>
+      </div>
+    </div> -->
+  <div class="table-responsive" #epltable>
+    <div style="padding-bottom: 10px; padding-top: 10px">
+      <button (click)="exportToExcel()" class="btn-export-to-excel">
+        导出为Excel表
+      </button>
+    </div>
+    <table>
+      <tr>
+        <td colspan="9">
+          <div class="title">{{ courseTable.title }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><div class="section-title">节次</div></td>
+        <td>星期一</td>
+        <td>星期二</td>
+        <td>星期三</td>
+        <td>星期四</td>
+        <td>星期五</td>
+        <td>星期六</td>
+        <td>星期日</td>
+      </tr>
+
+      <tr>
+        <td rowspan="2"><div class="day-time">上午</div></td>
+        <td><div class="section">第一二节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point112 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point212 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point312 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point412 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point512 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point612 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point712 }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="section">第三四节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point134 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point234 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point334 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point434 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point534 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point634 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point734 }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="9"><div class="cap"></div></td>
+      </tr>
+
+      <tr>
+        <td rowspan="2"><div class="day-time">下午</div></td>
+        <td><div class="section">第五六节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point156 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point256 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point356 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point456 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point556 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point656 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point756 }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="section">第七八节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point178 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point278 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point378 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point478 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point578 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point678 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point778 }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="9"><div class="cap"></div></td>
+      </tr>
+      <tr>
+        <td rowspan="3"><div class="day-time">晚上</div></td>
+        <td><div class="section">第九节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point19 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point29 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point39 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point49 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point59 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point69 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point79 }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="section">第十节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point110 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point210 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point310 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point410 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point510 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point610 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point710 }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="section">第十一节</div></td>
+        <td>
+          <div class="course">{{ courseTable.point111 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point211 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point311 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point411 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point511 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point611 }}</div>
+        </td>
+        <td>
+          <div class="course">{{ courseTable.point711 }}</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

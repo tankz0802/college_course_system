@@ -1,0 +1,50 @@
+<div class="body">
+  <div *ngIf="loading" class="loading">
+    <i class="fa fa-refresh fa-5x fa-spin" aria-hidden="true"></i>
+  </div>
+  <table *ngIf="!loading">
+    <tr>
+      <th>课程名</th>
+      <th>课时</th>
+      <th>学分</th>
+      <th>类型</th>
+      <th>任课老师</th>
+      <th>课程时间</th>
+      <th>已选/容量</th>
+      <th>操作</th>
+    </tr>
+    <tr *ngFor="let course of courseList">
+      <td>{{ course.name }}</td>
+      <td>{{ course.duration }}</td>
+      <td>{{ course.credit }}</td>
+      <td>{{ course.category }}</td>
+      <td>
+        <span *ngFor="let item of course.teachers">{{ item }}</span>
+      </td>
+      <td>
+        <div *ngFor="let item of course.schedules">
+          {{ item.week_start }}-{{ item.week_end }}周/{{
+            item.week_day | weekday
+          }}/{{ item.section_start }}-{{ item.section_end }}节
+        </div>
+      </td>
+      <td>{{ course.stu_num }}/{{ course.max_num }}</td>
+      <td>
+        <button
+          (click)="select(course.id)"
+          *ngIf="!course.selected"
+          class="select"
+        >
+          选课
+        </button>
+        <button
+          (click)="cancel(course.id)"
+          *ngIf="course.selected"
+          class="cancel"
+        >
+          退选
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

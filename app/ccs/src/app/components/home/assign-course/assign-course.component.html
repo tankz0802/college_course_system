@@ -1,0 +1,175 @@
+<div class="body">
+  <div
+    class="shadow"
+    *ngIf="showModal"
+    (click)="showModal = false; compulsoryFlag = false"
+  ></div>
+  <table *ngIf="courseList.length">
+    <tr>
+      <th>课程号</th>
+      <th>课程名称</th>
+      <th>课时</th>
+      <th>学分</th>
+      <th>课程类型</th>
+      <th>容量</th>
+      <th>操作</th>
+    </tr>
+    <tr *ngFor="let course of courseList; let i = index">
+      <td>{{ course.id }}</td>
+      <td>
+        <div class="course-name">
+          <span *ngIf="editLine != i">{{ course.name }}</span
+          ><input
+            type="text"
+            [(ngModel)]="courseList[i].name"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.duration }}</span
+          ><input
+            type="number"
+            [(ngModel)]="courseList[i].duration"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.credit }}</span
+          ><input
+            type="text"
+            [(ngModel)]="courseList[i].credit"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-name">
+          <span *ngIf="editLine != i">{{ course.category }}</span
+          ><input
+            type="text"
+            [(ngModel)]="courseList[i].category"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.max_num }}</span
+          ><input
+            type="number"
+            [(ngModel)]="courseList[i].max_num"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="option">
+          <button
+            class="edit"
+            (click)="edit(i)"
+            *ngIf="editLine == -1 || editLine != i"
+          >
+            编辑
+          </button>
+          <button
+            class="confirm-edit"
+            (click)="confirmEdit()"
+            *ngIf="editLine == i"
+          >
+            确定
+          </button>
+          <button class="assign-course" (click)="showAssignCourseModal(i)">
+            自动排课
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="assign-course-modal" *ngIf="showModal">
+    <div class="modal-header">
+      <i class="fa fa-times" aria-hidden="true" (click)="showModal = false"></i>
+    </div>
+    <div class="modal-body">
+      <div class="assign-rule">
+        <div class="preference">
+          <div (click)="showTimeRule = !showTimeRule">
+            <span>时间偏好</span>
+            <i
+              class="fa fa-angle-down"
+              aria-hidden="true"
+              *ngIf="!showTimeRule"
+            ></i>
+            <i
+              class="fa fa-angle-up"
+              aria-hidden="true"
+              *ngIf="showTimeRule"
+            ></i>
+          </div>
+          <ul *ngIf="showTimeRule">
+            <li
+              *ngFor="let item of timeRule; let i = index"
+              (click)="selectTime(i)"
+            >
+              <span>{{ item.rule }}</span>
+              <i class="fa fa-check" aria-hidden="true" *ngIf="item.select"></i>
+            </li>
+          </ul>
+        </div>
+
+        <div class="preference">
+          <div (click)="showDayRule = !showDayRule">
+            <span>日期偏好</span>
+            <i
+              class="fa fa-angle-down"
+              aria-hidden="true"
+              *ngIf="!showDayRule"
+            ></i>
+            <i
+              class="fa fa-angle-up"
+              aria-hidden="true"
+              *ngIf="showDayRule"
+            ></i>
+          </div>
+          <ul *ngIf="showDayRule">
+            <li
+              *ngFor="let item of dayRule; let i = index"
+              (click)="selectDay(i)"
+            >
+              <span>{{ item.rule }}</span>
+              <i class="fa fa-check" aria-hidden="true" *ngIf="item.select"></i>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="compulsoryFlag" class="preference">
+          <div (click)="showClass = !showClass">
+            <span>分配班级</span>
+            <i
+              class="fa fa-angle-down"
+              aria-hidden="true"
+              *ngIf="!showClass"
+            ></i>
+            <i class="fa fa-angle-up" aria-hidden="true" *ngIf="showClass"></i>
+          </div>
+          <ul *ngIf="showClass">
+            <li
+              *ngFor="let item of class; let i = index"
+              (click)="selectClass(i)"
+            >
+              <span>{{ item.rule }}</span>
+              <i class="fa fa-check" aria-hidden="true" *ngIf="item.select"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="confirmAssign()">确定</button>
+      <button (click)="showModal = false; compulsoryFlag = false">取消</button>
+    </div>
+  </div>
+</div>

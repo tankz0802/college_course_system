@@ -1,0 +1,24 @@
+<div class="body">
+  <form action="">
+    <h3>欢迎使用选课系统</h3>
+    <div class="username-wrap">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <input
+        type="text"
+        placeholder="学号/教工号"
+        [(ngModel)]="loginForm.id"
+        name="id"
+      />
+    </div>
+    <div class="password-wrap">
+      <i class="fa fa-lock" aria-hidden="true"></i>
+      <input
+        type="password"
+        placeholder="密码"
+        [(ngModel)]="loginForm.password"
+        name="password"
+      />
+    </div>
+    <button (click)="login()">登录</button>
+  </form>
+</div>

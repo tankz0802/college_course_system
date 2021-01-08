@@ -1,0 +1,45 @@
+.body {
+    overflow-y:auto;
+    padding: 40px;
+
+    .loading {
+        margin-top: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    table{
+        border-collapse: collapse;
+    }
+    table tr th {
+        border:1px solid #ccc; 
+        text-align: center;
+        padding: 5px;
+    }
+    table,table tr td { 
+        border:1px solid #ccc;
+        text-align: center; 
+        button {
+            border: none;
+            color: #fff;
+            width: 60px;
+            height: 25px;
+            cursor: pointer;
+            outline: none;
+        }
+        button.select {
+            background-color: #2ed573;
+        }
+        button.cancel {
+            background-color: #ff4757;
+        }
+    }
+    table tr td{
+        padding: 5px 20px;
+    }
+    tr:not(:first-child):hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+}
