@@ -1,0 +1,11 @@
+.body table {
+  border-collapse: collapse;
+  margin: 40px 0px;
+}
+.body table th,
+.body table td {
+  border: 1px solid #ccc;
+  padding: 5px 30px;
+  font-size: 15px;
+  text-align: center;
+}

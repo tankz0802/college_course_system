@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,32 +11,35 @@ export class SelectCourseComponent implements OnInit {
 
   loading:boolean;
   courseList:any[];
-  constructor(private http:HttpClient) { }
+  sid:Number;
+  constructor(private http:HttpClient, private cookieService:CookieService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.http.get('api/elective_course/1806100187').toPromise().then((data)=>{
+    this.courseList = [];
+    this.sid = Number(this.cookieService.get('_id'));
+    this.http.get('api/elective_course/'+this.sid).toPromise().then((data)=>{
       this.courseList = data["data"];
       this.loading = false
-      console.log(this.courseList);
     }).catch((err)=>{
-      alert(err.error.msg)
+      alert(err.error)
     })
   }
 
   select(cid) {
-    this.http.post('api/select_elective_course', {sid:1806100187, cid:cid}).toPromise().then((data)=>{
+    this.http.post('api/select_elective_course', {sid:this.sid, cid:cid}).toPromise().then((data)=>{
       this.courseList = data["data"];
     }).catch((err)=>{
-      alert(err.error.msg);
+      alert(err.error);
     })
   }
 
   cancel(cid) {
-    this.http.post('api/cancel_elective_course', {sid: 1806100187, cid:cid}).toPromise().then((data)=>{
+    let req = {'sid': this.sid, 'cid':cid}
+    this.http.post('api/cancel_elective_course', req).toPromise().then((data)=>{
       this.courseList = data["data"];
     }).catch((err)=>{
-      alert(err.error.msg)
+      alert(err.error)
     })
   }
 

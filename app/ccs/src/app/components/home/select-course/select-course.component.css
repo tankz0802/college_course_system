@@ -8,6 +8,9 @@
   justify-content: center;
   align-items: center;
 }
+.body .tips {
+  margin-top: 50px;
+}
 .body table {
   border-collapse: collapse;
 }

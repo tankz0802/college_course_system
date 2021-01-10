@@ -39,7 +39,7 @@ func (c *Course) Add() error {
 func (c *Course) Get() error {
 	sql := "select * from course where id=?"
 	row := db.DB.QueryRow(sql, c.Id)
-	err := row.Scan(&c.Id, &c.Name, &c.Duration, &c.Credit, &c.Category, c.StuNum, c.MaxNum, c.Status)
+	err := row.Scan(&c.Id, &c.Name, &c.Duration, &c.Credit, &c.Category, &c.StuNum, &c.MaxNum, &c.Status)
 	if err != nil {
 		log.Println(err.Error())
 		return err
@@ -47,11 +47,79 @@ func (c *Course) Get() error {
 	return nil
 }
 
+func (c *Course) Update() error {
+	sql := "update course set name=?,duration=?,credit=?,category=?,stu_num=?,max_num=? where id=?"
+	_, err := db.DB.Exec(sql, c.Name, c.Duration, c.Credit, c.Category, c.StuNum, c.MaxNum, c.Id)
+	if err != nil {
+		log.Println(err.Error())
+		return err
+	}
+	return nil
+}
+
+func GetCourseList() ([]*Course, error) {
+	sql := "select * from course"
+	rows, err := db.DB.Query(sql)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err.Error())
+		return nil, err
+	}
+	courseList := make([]*Course, 0)
+	for rows.Next() {
+		course := &Course{}
+		if err := rows.Scan(&course.Id,
+			&course.Name,
+			&course.Duration,
+			&course.Credit,
+			&course.Category,
+			&course.StuNum,
+			&course.MaxNum,
+			&course.Status);
+		err != nil {
+			log.Println(err.Error())
+			return nil, err
+		}
+		courseList = append(courseList, course)
+	}
+	return courseList, nil
+}
+
+func GetUnTeachCourseList(tid int64) ([]*Course, error) {
+	sql := `select tc.tid,c.id,c.name,c.duration,c.credit,c.category,c.stu_num,c.max_num
+			from teacher_course as tc
+			inner join course as c
+			on tc.cid=c.id WHERE tc.tid=? and status=0`
+	rows, err := db.DB.Query(sql, tid)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err.Error())
+		return nil, err
+	}
+	teachCourseList := make([]*Course, 0)
+	for rows.Next() {
+		teachCourse := &Course{}
+		var id int
+		if err := rows.Scan(&id, &teachCourse.Id,
+			&teachCourse.Name,
+			&teachCourse.Duration,
+			&teachCourse.Credit,
+			&teachCourse.Category,
+			&teachCourse.StuNum,
+			&teachCourse.MaxNum);
+			err != nil {
+			return nil, err
+		}
+		teachCourseList = append(teachCourseList, teachCourse)
+	}
+	return teachCourseList, nil
+}
+
 func GetTeachCourseList(tid int64) ([]*Course, error) {
 	sql := `select tc.tid,c.id,c.name,c.duration,c.credit,c.category,c.stu_num,c.max_num
 			from teacher_course as tc
 			inner join course as c
-			on tc.cid=c.id WHERE tc.tid=?`
+			on tc.cid=c.id WHERE tc.tid=? and status=1`
 	rows, err := db.DB.Query(sql, tid)
 	defer rows.Close()
 	if err != nil {
@@ -122,7 +190,7 @@ func GetElectiveCourseInfo(sid int64) ([]*CourseInfo, error) {
 	sql := `select c.id,c.name,c.duration,c.credit,c.category,c.stu_num,c.max_num,@selected:=IF(IFNULL(sc.sid,FALSE),TRUE, FALSE) as selected
 			from course as c left join student_course as sc 
 			on c.id=sc.cid 
-			where c.category like '%选修%' and (sc.sid=? or sc.cid is NULL)`
+			where c.category like '%选修%' and c.status=1 and (sc.sid=? or sc.cid is NULL)`
 	rows, err := db.DB.Query(sql, sid)
 	defer rows.Close()
 	if err != nil {

@@ -24,6 +24,27 @@ func GetElectiveCourseHandler(c *gin.Context) {
 	})
 }
 
+func CancelElectiveCourseHandler(c *gin.Context) {
+	studentCourse := &model.StudentCourse{}
+	if err := c.ShouldBindJSON(studentCourse); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	err := studentCourse.DeleteElectiveCourse()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	courseList, _ := model.GetElectiveCourseInfo(studentCourse.SId)
+	c.JSON(http.StatusOK, gin.H{
+		"data": courseList,
+	})
+}
+
 func SelectElectiveCourseHandler(c *gin.Context) {
 	var sc model.StudentCourse
 	if err := c.ShouldBindJSON(&sc); err != nil {
@@ -45,7 +66,7 @@ func SelectElectiveCourseHandler(c *gin.Context) {
 		})
 		return
 	}
-	err = sc.Add()
+	err = sc.AddElectiveCourse()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),

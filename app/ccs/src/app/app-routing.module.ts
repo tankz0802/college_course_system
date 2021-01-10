@@ -1,3 +1,4 @@
+import { StudentListComponent } from './components/home/student-list/student-list.component';
 import { RoleGuard } from './role.guard';
 import { AssignCourseComponent } from './components/home/assign-course/assign-course.component';
 import { CollegeInfoComponent } from './components/home/college-info/college-info.component';
@@ -49,11 +50,14 @@ const routes: Routes = [{
     {
       path: 'college_info',
       component: CollegeInfoComponent
+    },
+    {
+      path: 'student_list',
+      component: StudentListComponent
     }
   ]
 },
-{ path: '', component: LoginComponent},
-{ path: '**', component: PageNotFoundComponent }
+{ path: '**', component: LoginComponent},
 ];
 
 @NgModule({

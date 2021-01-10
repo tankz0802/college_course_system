@@ -15,7 +15,6 @@ export class TeachCourseComponent implements OnInit {
   ngOnInit(): void {
     this.courseList = [];
     this.http.get('api/teach_course_list/'+this.cookieService.get('_id')).toPromise().then((data)=>{
-      console.log(data["data"]);
       this.courseList = data["data"];
     }).catch((err)=>{
       alert(err.error.msg);

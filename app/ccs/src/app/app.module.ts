@@ -17,6 +17,7 @@ import { TeachCourseComponent } from './components/home/teach-course/teach-cours
 import { CollegeInfoComponent } from './components/home/college-info/college-info.component';
 import { AssignCourseComponent } from './components/home/assign-course/assign-course.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { StudentListComponent } from './components/home/student-list/student-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     TeachCourseComponent,
     CollegeInfoComponent,
     AssignCourseComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    StudentListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2021/1/8 12:53:13                            */
+/* Created on:     2021/1/8 23:25:45                            */
 /*==============================================================*/
 
 
@@ -23,7 +23,7 @@ create table class
 create table class_course
 (
    id                   integer not null  comment '',
-   cid                  integer not null  comment '',
+   cid                  char(15) not null  comment '',
    primary key (id, cid)
 );
 
@@ -98,7 +98,7 @@ create table student
 create table student_course
 (
    sid                  integer not null  comment '',
-   cid                  integer not null  comment '',
+   cid                  char(15) not null  comment '',
    grade                int  comment '',
    gpa                  double  comment '',
    primary key (sid, cid)

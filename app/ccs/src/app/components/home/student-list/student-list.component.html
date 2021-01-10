@@ -1,0 +1,64 @@
+<div class="body">
+  <table *ngIf="studentList.length">
+    <tr>
+      <th>排名</th>
+      <th>学号</th>
+      <th>姓名</th>
+      <th>班级</th>
+      <th>成绩</th>
+      <th>绩点</th>
+      <th>操作</th>
+    </tr>
+    <tr *ngFor="let student of studentList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ student.id }}</td>
+      <td>
+        <div>
+          {{ student.name }}
+        </div>
+      </td>
+      <td>
+        <div>
+          {{ student.cname }}
+        </div>
+      </td>
+      <td>
+        <div class="student-grade">
+          <span *ngIf="editLine != i">{{ student.grade }}</span
+          ><input type="number" [(ngModel)]="editGrade" *ngIf="editLine == i" />
+        </div>
+      </td>
+      <td>
+        <div class="student-grade">
+          <span *ngIf="editLine != i">{{ student.gpa }}</span
+          ><input type="number" [(ngModel)]="editGPA" *ngIf="editLine == i" />
+        </div>
+      </td>
+      <td>
+        <div class="option">
+          <button
+            class="edit"
+            (click)="edit(i)"
+            *ngIf="editLine == -1 || editLine != i"
+          >
+            编辑
+          </button>
+          <button
+            class="confirm-edit"
+            (click)="confirmEdit()"
+            *ngIf="editLine == i"
+          >
+            确定
+          </button>
+          <button
+            class="cancel-edit"
+            (click)="cancelEdit()"
+            *ngIf="editLine == i"
+          >
+            取消
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

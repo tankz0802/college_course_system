@@ -1,10 +1,18 @@
 package utils
 
 import (
+	"ccs/db"
 	"fmt"
 )
 
 func InitData() {
+	sql := "select name from student where id=1706100071"
+	var name string
+	db.DB.QueryRow(sql).Scan(&name)
+	if name != "" {
+		return
+	}
+
 	teacherCourseInfo := ExtractExcels("assets/teacher_course")
 	for _, item := range teacherCourseInfo.TeacherList {
 		item.Add()

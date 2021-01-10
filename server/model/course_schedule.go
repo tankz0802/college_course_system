@@ -2,6 +2,7 @@ package model
 
 import (
 	"ccs/db"
+	"database/sql"
 	"log"
 )
 
@@ -16,15 +17,16 @@ type CourseSchedule struct {
 	TId int64 `json:"tid"`
 }
 
-func (cs *CourseSchedule) Add() error {
+func (cs *CourseSchedule) Add(tx *sql.Tx) error {
 	sql := "insert into course_schedule(cid,week_start,week_end,week_day,section_start,section_end,tid) values(?,?,?,?,?,?,?)"
-	_, err := db.DB.Exec(sql, cs.CId, cs.WeekStart, cs.WeekEnd, cs.WeekDay, cs.SectionStart, cs.SectionEnd, cs.TId)
+	_, err := tx.Exec(sql, cs.CId, cs.WeekStart, cs.WeekEnd, cs.WeekDay, cs.SectionStart, cs.SectionEnd, cs.TId)
 	if err != nil {
+		log.Println(err.Error())
+		tx.Rollback()
 		return err
 	}
 	return nil
 }
-
 
 func CourseHasConflict(sid int64, cid string) (bool,error) {
 	courseSchedule, err := GetCourseScheduleByCID(cid)
@@ -47,7 +49,39 @@ func CourseHasConflict(sid int64, cid string) (bool,error) {
 	return false, nil
 }
 
-func GetClassCourseTable(cid int) ([]*CourseSchedule, error) {
+func GetTeacherCourseScheduleList(tid int64) ([]*CourseSchedule, error) {
+	sql := `select cs.id,cs.week_start,cs.week_end,cs.week_day,cs.section_start,cs.section_end 
+			from teacher_course as tc 
+			inner join course as c
+			on tc.cid=c.id 
+			inner join course_schedule as cs 
+			on c.id=cs.cid 
+			where tc.tid=?`
+	rows, err := db.DB.Query(sql, tid)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err.Error())
+		return nil, err
+	}
+	teacherCourseTable := make([]*CourseSchedule, 0)
+	for rows.Next() {
+		courseSchedule := &CourseSchedule{}
+		if err := rows.Scan(&courseSchedule.Id,
+			&courseSchedule.WeekStart,
+			&courseSchedule.WeekEnd,
+			&courseSchedule.WeekDay,
+			&courseSchedule.SectionStart,
+			&courseSchedule.SectionEnd);
+			err != nil {
+			log.Println(err.Error())
+			return nil, err
+		}
+		teacherCourseTable = append(teacherCourseTable, courseSchedule)
+	}
+	return teacherCourseTable, nil
+}
+
+func GetClassCourseTable(cid int64) ([]*CourseSchedule, error) {
 	sql := `select cs.id,cs.week_start,cs.week_end,cs.week_day,cs.section_start,cs.section_end 
 			from class_course as cc 
 			inner join course_schedule as cs 
@@ -63,7 +97,7 @@ func GetClassCourseTable(cid int) ([]*CourseSchedule, error) {
 		courseSchedule := &CourseSchedule{}
 		if err := rows.Scan(&courseSchedule.Id,
 			&courseSchedule.WeekStart,
-			&courseSchedule.SectionEnd,
+			&courseSchedule.WeekEnd,
 			&courseSchedule.WeekDay,
 			&courseSchedule.SectionStart,
 			&courseSchedule.SectionEnd);

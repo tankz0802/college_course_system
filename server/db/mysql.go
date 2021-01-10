@@ -19,7 +19,7 @@ var (
 func Init() {
 
 	sqlInfo := fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s?charset=utf8",
+		"%s:%s@tcp(%s:%d)/%s?timeout=15s&readTimeout=15s&writeTimeout=15s&charset=utf8",
 		config.MYSQL_USER,
 		config.MYSQL_PASSWORD,
 		config.MYSQL_HOST,
@@ -31,7 +31,8 @@ func Init() {
 	}
 
 	DB.SetConnMaxLifetime(100)
-	DB.SetMaxIdleConns(10)
+	//DB.SetMaxIdleConns(10)
+	DB.SetMaxIdleConns(0)
 	if err := DB.Ping(); err != nil {
 		fmt.Println("Mysql Failed Connected!")
 		log.Fatal(err.Error())

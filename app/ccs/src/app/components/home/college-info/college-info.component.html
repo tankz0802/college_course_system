@@ -1,1 +1,98 @@
-<p>college-info works!</p>
+<div class="body">
+  <div class="option-group">
+    <button (click)="getStudentList()">学生信息</button>
+    <button (click)="getTeacherList()">教师信息</button>
+    <button (click)="getCourseList()">课程信息</button>
+    <button (click)="getClassList()">班级信息</button>
+  </div>
+
+  <div class="student-info-list" *ngIf="select == 1">
+    <div *ngFor="let studentInfo of studentList; let i = index">
+      <div>
+        <div
+          (click)="updateClassIndex(i)"
+          class="select-class student-list-item"
+        >
+          <span
+            >计算机科学与网络工程学院&nbsp;&nbsp;{{
+              studentInfo.class.name
+            }}班</span
+          ><i
+            class="fa fa-caret-right"
+            aria-hidden="true"
+            *ngIf="classIndex != i"
+          ></i>
+          <i
+            class="fa fa-caret-down"
+            aria-hidden="true"
+            *ngIf="classIndex == i"
+          ></i>
+        </div>
+        <div *ngIf="classIndex == i" class="student-list">
+          <div
+            *ngFor="let student of studentInfo.student_list; let i = index"
+            class="student-list-item student"
+          >
+            <span>{{ i + 1 }}</span>
+            <span>{{ student.id }}</span>
+            <span>{{ student.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-info-list" *ngIf="select == 2">
+    <ul class="teacher-list">
+      <li>
+        <span>序号</span>
+        <span>教工号</span>
+        <span>姓名</span>
+      </li>
+      <li *ngFor="let teacher of teacherList; let i = index">
+        <span>{{ i + 1 }}</span>
+        <span>{{ teacher.id }}</span
+        ><span>{{ teacher.name }}</span>
+        <span></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="course-info-list" *ngIf="select == 3">
+    <ul class="course-list">
+      <li>
+        <span>序号</span>
+        <span>课程号</span>
+        <span>课程名称</span>
+        <span>课时</span>
+        <span>学分</span>
+        <span>课程类型</span>
+        <span>已选/容量</span>
+      </li>
+      <li *ngFor="let course of courseList; let i = index">
+        <span>{{ i + 1 }}</span>
+        <span>{{ course.id }}</span>
+        <span>{{ course.name }}</span>
+        <span>{{ course.duration }}</span>
+        <span>{{ course.credit }}</span>
+        <span>{{ course.category }}</span>
+        <span>{{ course.stu_num }}/{{ course.max_num }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="class-info-list" *ngIf="select == 4">
+    <ul class="class-list">
+      <li>
+        <span>序号</span>
+        <span>班级名称</span>
+        <span>班主任</span>
+      </li>
+      <li *ngFor="let class of classList; let i = index">
+        <span>{{ i + 1 }}</span>
+        <span>{{ class.name }}</span>
+        <span>{{ class.teacher }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

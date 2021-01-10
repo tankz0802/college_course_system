@@ -52,22 +52,22 @@ func (t *Teacher) UpdateTitle(title int64) error {
 	return nil
 }
 
-func GetAllTeacher() []*Teacher {
+func GetTeacherList() ([]*Teacher, error) {
 	sql := "select id,name from teacher"
 	rows, err := db.DB.Query(sql)
 	defer rows.Close()
 	if err != nil {
 		log.Println(err)
-		return nil
+		return nil, err
 	}
 	teacherList := make([]*Teacher, 0)
 	for rows.Next() {
 		teacher := &Teacher{}
-		if err := rows.Scan(teacher.Id, teacher.Name); err != nil {
+		if err := rows.Scan(&teacher.Id, &teacher.Name); err != nil {
 			log.Println(err)
-			return nil
+			return nil, err
 		}
 		teacherList = append(teacherList, teacher)
 	}
-	return teacherList
+	return teacherList, nil
 }

@@ -1,0 +1,191 @@
+.body {
+    min-width: 1200px;
+    height: 100%;
+
+    div.option-group {
+        margin-top: 30px;
+
+        button {
+            min-width: 100px;
+            height: 40px;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            margin-right: 20px;
+        }
+        button:nth-of-type(1) {
+            background-color: #55efc4;
+        }
+        button:nth-of-type(1):hover{
+            background-color: #00b894;
+        }
+        button:nth-of-type(2) {
+            background-color: #81ecec;
+        }
+        button:nth-of-type(2):hover{
+            background-color: #00cec9;
+        }
+        button:nth-of-type(3) {
+            background-color: #74b9ff;
+        }
+        button:nth-of-type(3):hover{
+            background-color: #0984e3;
+        }
+        button:nth-of-type(4) {
+            background-color: #fd79a8;
+        }
+        button:nth-of-type(4):hover{
+            background-color: #e84393;
+        }
+    }
+    div.student-info-list {
+        margin-top: 20px;
+        width: 800px;
+
+        div.select-class {
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            
+            i {
+                position: absolute;
+                right: 20px;
+            }
+        }
+
+        div.student-list-item {
+            height: 35px;
+            border-radius: 3px;
+            width: 100%;
+            margin: 1px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-left: 20px;
+        }
+
+        div.student-list-item:nth-of-type(odd) {
+            background-color: #cdfffc;
+        }
+        
+        div.student-list {
+
+            div:nth-child(odd) {
+                background-color: aliceblue;
+            }
+
+            .student {
+
+                span {
+                    width: 300px;
+                    text-align: center;
+                }
+                span:first-child{
+                    width: 50px;
+                    text-align: center;
+                    margin-right: 50px;
+                }
+            }
+        }
+    }
+
+    div.teacher-info-list {
+        width: 800px;
+        margin-top: 20px;
+        ul {
+            color: #333;
+            li {
+                list-style: none;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                border-radius: 3px;
+
+                span {
+                    width: 100px;
+                    text-align: center;
+                }
+
+                span:first-child{
+                    width: 50px;
+                    text-align: center;
+                    margin-left: 20px;
+                    margin-right: 180px;
+                }
+                span:nth-of-type(2) {
+                    margin-right: 180px;
+                }
+            }
+            li:nth-of-type(odd){
+                background-color: #f1f6f9;
+            }
+        }
+    }
+    div.course-info-list {
+        width: 1000px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+
+        ul {
+
+            li {
+                list-style: none;
+                height: 35px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                span {
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+                span:first-child{
+                    width: 50px;
+                    margin-left: 20px;
+                }
+
+                span:not(:first-child) {
+                    width: 200px;
+                }
+            }
+
+            li:nth-of-type(odd) {
+                background-color: aliceblue;
+            }
+        }
+    }
+    div.class-info-list {
+        width: 800px;
+        margin-top: 20px;
+
+        ul {
+            li {
+                list-style: none;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 35px;
+                border-radius: 3px;
+                margin-top: 2px;
+
+                span {
+                    width: 300px;
+                    text-align: center;
+                }
+
+                span:first-child {
+                    width: 50px;
+                    margin-right: 50px;
+                }
+            }
+            li:nth-of-type(odd){
+                background-color: aliceblue;
+            }
+            li:nth-of-type(even){
+                background-color: #f6f6f6;
+            }
+        }
+    }
+}

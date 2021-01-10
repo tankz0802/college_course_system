@@ -9,7 +9,7 @@
       *ngIf="role == 'student'"
       (click)="selectCourse()"
     >
-      <i class="fa fa-book" aria-hidden="true"></i>
+      <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
       <div *ngIf="popFlag">选课</div>
     </ul>
     <ul
@@ -29,7 +29,7 @@
       <div *ngIf="popFlag">成绩</div>
     </ul>
     <ul
-      [ngClass]="{ selected: selected == '成绩' }"
+      [ngClass]="{ selected: selected == '我的授课' }"
       *ngIf="role != 'student'"
       (click)="teachCourse()"
     >
@@ -55,6 +55,23 @@
         <i class="fa fa-indent fa-lg" aria-hidden="true" *ngIf="!popFlag"></i
         ><i class="fa fa-outdent fa-lg" aria-hidden="true" *ngIf="popFlag"></i>
       </button>
+      <div class="welcome">欢迎你,{{ name }}!</div>
+      <div class="avatar" (click)="showSelectFLag = !showSelectFLag">
+        <img src="assets/img/avatar.jpg" alt="" />
+        <ul *ngIf="showSelectFLag">
+          <li>
+            <a
+              href="https://github.com/TankLQY/college_course_system"
+              target="_blank"
+            ></a
+            ><i class="fa fa-github" aria-hidden="true"></i><span>Github</span>
+          </li>
+          <li (click)="logout()">
+            <i class="fa fa-sign-out" aria-hidden="true"></i
+            ><span>退出登录</span>
+          </li>
+        </ul>
+      </div>
     </header>
     <main><router-outlet></router-outlet></main>
   </div>

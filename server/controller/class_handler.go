@@ -18,3 +18,16 @@ func GetCLassListHandler(c *gin.Context) {
 		"data": classList,
 	})
 }
+
+func GetClassInfoListHandler(c *gin.Context) {
+	classInfoList, err := model.GetClassInfoList()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": classInfoList,
+	})
+}

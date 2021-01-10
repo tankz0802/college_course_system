@@ -4,16 +4,16 @@ func GetDurationEquals64Rule(ac *AssignCourse) [][]*CourseSchedule {
 	if len(ac.Time) == 0 {
 		ac.Time = append(ac.Time, 1, 3)
 	}
-	if len(ac.Time) == 1 && !timeIncludesNight(ac.Time) {
+	if len(ac.Time) == 1 && !timeIncludesNight64(ac.Time) {
 		ac.Time = append(ac.Time, 3 - ac.Time[0])
-	}else if len(ac.Time) == 1 && timeIncludesNight(ac.Time) {
+	}else if len(ac.Time) == 1 && timeIncludesNight64(ac.Time) {
 		ac.Time = append(ac.Time, 2)
 	}
 	if len(ac.Time) == 3 {
 		ac.Time = ac.Time[0:0]
 		ac.Time = append(ac.Time, 1, 3)
 	}
-	res := getTimeCombine(ac.Time)
+	res := getTimeCombine64(ac.Time)
 
 	if len(ac.WeekDay) == 0 {
 		ac.WeekDay = append(ac.WeekDay, 1, 3)
@@ -28,8 +28,8 @@ func GetDurationEquals64Rule(ac *AssignCourse) [][]*CourseSchedule {
 	if len(ac.WeekDay) > 2 {
 		ac.WeekDay = ac.WeekDay[0:2]
 	}
-	res2 := getWeekDayCombine(res, ac.WeekDay)
-	res3 := getWeekCombine(res2)
+	res2 := getWeekDayCombine64(res, ac.WeekDay)
+	res3 := getWeekCombine64(res2)
 	courseScheduleLists := make([][]*CourseSchedule, 0)
 	for _, item := range res3 {
 		courseSchedule1 := &CourseSchedule{
@@ -57,7 +57,7 @@ func GetDurationEquals64Rule(ac *AssignCourse) [][]*CourseSchedule {
 	return courseScheduleLists
 }
 
-func getTimeCombine(time []int) [][][]int {
+func getTimeCombine64(time []int) [][][]int {
 	var rule [][][]int
 	for _, item := range time {
 		if item == 1 {
@@ -77,7 +77,7 @@ func getTimeCombine(time []int) [][][]int {
 	return res
 }
 
-func getWeekDayCombine(rule [][][]int, weekday []int) [][][]int {
+func getWeekDayCombine64(rule [][][]int, weekday []int) [][][]int {
 	for _, item := range rule {
 		var itemCopy = make([][]int, 2)
 		copy(itemCopy, item)
@@ -90,7 +90,7 @@ func getWeekDayCombine(rule [][][]int, weekday []int) [][][]int {
 	return rule
 }
 
-func getWeekCombine(rule [][][]int) [][][]int {
+func getWeekCombine64(rule [][][]int) [][][]int {
 	for _, item := range rule {
 		itemCopy := make([][]int, 2)
 		copy(itemCopy, item)
@@ -114,7 +114,7 @@ func getWeekCombine(rule [][][]int) [][][]int {
 	return rule
 }
 
-func timeIncludesNight(time []int) bool {
+func timeIncludesNight64(time []int) bool {
 	for _, item := range time {
 		if item == 3 {
 			return true

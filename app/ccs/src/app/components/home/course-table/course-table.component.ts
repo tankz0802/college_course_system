@@ -1,5 +1,4 @@
 import { CookieService } from 'ngx-cookie-service';
-import { ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as xlsx from 'xlsx';
@@ -81,22 +80,22 @@ export class CourseTableComponent implements OnInit {
       console.log(data["data"])
       this.courseList = data["data"];
       this.courseTable['title'] = this.cookieService.get('_name')+'的课表'
-      this.courseList.forEach((val, index, array)=>{
+      this.courseList.forEach((val)=>{
         console.log(val);
         if(val.section_start < 9) {
           let point = 'point' + val.week_day + val.section_start+val.section_end;
-          this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.category;
+          this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.tname+'/'+val.category + '\n';
           console.log(this.courseTable[point]);
         }else{
           for(let i=val.section_start;i<=val.section_end;i++) {
             let point = 'point' + val.week_day + i;
-            this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.category+'\n';
+            this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.tname+'/'+val.category+'\n';
             console.log(this.courseTable[point])
           }
         }
       })
     }).catch((err)=>{
-      alert(err.error.msg)
+      alert(err.error)
     })
   }
 
@@ -109,7 +108,7 @@ export class CourseTableComponent implements OnInit {
         console.log(val);
         if(val.section_start < 9) {
           let point = 'point' + val.week_day + val.section_start+val.section_end;
-          this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.category;
+          this.courseTable[point] += val.cname+'/'+val.week_start+'-'+val.week_end+'周/'+val.cid+'/'+val.category + '\n';
           console.log(this.courseTable[point]);
         }else{
           for(let i=val.section_start;i<=val.section_end;i++) {
@@ -120,7 +119,7 @@ export class CourseTableComponent implements OnInit {
         }
       })
     }).catch((err)=>{
-        alert(err.error.msg)
+        alert(err.error)
     })
   }
 

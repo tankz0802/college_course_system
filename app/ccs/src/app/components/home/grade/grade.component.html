@@ -1,1 +1,20 @@
-<p>grade works!</p>
+<div class="body">
+  <table *ngIf="gradeList.length">
+    <tr>
+      <th>课程号</th>
+      <th>课程名</th>
+      <th>任课老师</th>
+      <th>成绩</th>
+      <th>绩点</th>
+    </tr>
+    <tr *ngFor="let grade of gradeList">
+      <td>{{ grade.id }}</td>
+      <td>{{ grade.name }}</td>
+      <td>
+        <span *ngFor="let teacher of grade.teachers">{{ teacher }}&nbsp;</span>
+      </td>
+      <td>{{ grade.grade }}</td>
+      <td>{{ grade.gpa }}</td>
+    </tr>
+  </table>
+</div>

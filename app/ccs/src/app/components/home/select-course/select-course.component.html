@@ -2,7 +2,10 @@
   <div *ngIf="loading" class="loading">
     <i class="fa fa-refresh fa-5x fa-spin" aria-hidden="true"></i>
   </div>
-  <table *ngIf="!loading">
+  <div *ngIf="!loading && !courseList.length" class="tips">
+    <h3>当前不是选课阶段，请与管理员联系</h3>
+  </div>
+  <table *ngIf="!loading && courseList.length">
     <tr>
       <th>课程名</th>
       <th>课时</th>

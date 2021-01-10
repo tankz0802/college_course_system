@@ -8,6 +8,7 @@ export class UserInfoService {
   private role:string;
   private name:string;
   private id:string;
+  public select:string;
   constructor() { }
 
   setRole(role:string) {

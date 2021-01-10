@@ -1,4 +1,5 @@
 <div class="body">
+  <div *ngIf="courseList.length == 0"><h4>您还没有排课,请先排课</h4></div>
   <table *ngIf="courseList.length">
     <tr>
       <th>课程号</th>
@@ -6,19 +7,23 @@
       <th>课时</th>
       <th>学分</th>
       <th>课程类型</th>
-      <th>课程时间</th>
       <th>已选/容量</th>
       <th>选课名单</th>
     </tr>
-    <tr *ngFor="let course of courseList">
+    <tr *ngFor="let course of courseList; let i = index">
       <td>{{ course.id }}</td>
       <td>{{ course.name }}</td>
       <td>{{ course.duration }}</td>
       <td>{{ course.credit }}</td>
       <td>{{ course.category }}</td>
-      <td>1111</td>
       <td>{{ course.stu_num }}/{{ course.max_num }}</td>
-      <th><i class="fa fa-list" aria-hidden="true"></i></th>
+      <th>
+        <a
+          [routerLink]="['/home/student_list']"
+          [queryParams]="{ cid: course.id }"
+          ><i class="fa fa-list" aria-hidden="true"></i
+        ></a>
+      </th>
     </tr>
   </table>
 </div>

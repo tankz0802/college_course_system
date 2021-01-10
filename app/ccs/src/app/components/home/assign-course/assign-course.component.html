@@ -4,7 +4,10 @@
     *ngIf="showModal"
     (click)="showModal = false; compulsoryFlag = false"
   ></div>
-  <table *ngIf="courseList.length">
+  <table *ngIf="unTeachCourseList.length">
+    <caption>
+      未排课
+    </caption>
     <tr>
       <th>课程号</th>
       <th>课程名称</th>
@@ -14,14 +17,14 @@
       <th>容量</th>
       <th>操作</th>
     </tr>
-    <tr *ngFor="let course of courseList; let i = index">
+    <tr *ngFor="let course of unTeachCourseList; let i = index">
       <td>{{ course.id }}</td>
       <td>
         <div class="course-name">
           <span *ngIf="editLine != i">{{ course.name }}</span
           ><input
             type="text"
-            [(ngModel)]="courseList[i].name"
+            [(ngModel)]="unTeachCourseList[i].name"
             *ngIf="editLine == i"
           />
         </div>
@@ -31,7 +34,7 @@
           <span *ngIf="editLine != i">{{ course.duration }}</span
           ><input
             type="number"
-            [(ngModel)]="courseList[i].duration"
+            [(ngModel)]="unTeachCourseList[i].duration"
             *ngIf="editLine == i"
           />
         </div>
@@ -40,8 +43,8 @@
         <div class="course-number">
           <span *ngIf="editLine != i">{{ course.credit }}</span
           ><input
-            type="text"
-            [(ngModel)]="courseList[i].credit"
+            type="number"
+            [(ngModel)]="unTeachCourseList[i].credit"
             *ngIf="editLine == i"
           />
         </div>
@@ -51,7 +54,7 @@
           <span *ngIf="editLine != i">{{ course.category }}</span
           ><input
             type="text"
-            [(ngModel)]="courseList[i].category"
+            [(ngModel)]="unTeachCourseList[i].category"
             *ngIf="editLine == i"
           />
         </div>
@@ -61,7 +64,7 @@
           <span *ngIf="editLine != i">{{ course.max_num }}</span
           ><input
             type="number"
-            [(ngModel)]="courseList[i].max_num"
+            [(ngModel)]="unTeachCourseList[i].max_num"
             *ngIf="editLine == i"
           />
         </div>
@@ -85,6 +88,79 @@
           <button class="assign-course" (click)="showAssignCourseModal(i)">
             自动排课
           </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <table *ngIf="teachCourseList.length" class="assigned">
+    <caption>
+      已排课
+    </caption>
+    <tr>
+      <th>课程号</th>
+      <th>课程名称</th>
+      <th>课时</th>
+      <th>学分</th>
+      <th>课程类型</th>
+      <th>容量</th>
+      <th>备注</th>
+    </tr>
+    <tr *ngFor="let course of teachCourseList; let i = index">
+      <td>{{ course.id }}</td>
+      <td>
+        <div class="course-name">
+          <span *ngIf="editLine != i">{{ course.name }}</span
+          ><input
+            type="text"
+            [(ngModel)]="unTeachCourseList[i].name"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.duration }}</span
+          ><input
+            type="number"
+            [(ngModel)]="unTeachCourseList[i].duration"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.credit }}</span
+          ><input
+            type="text"
+            [(ngModel)]="unTeachCourseList[i].credit"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-name">
+          <span *ngIf="editLine != i">{{ course.category }}</span
+          ><input
+            type="text"
+            [(ngModel)]="unTeachCourseList[i].category"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="course-number">
+          <span *ngIf="editLine != i">{{ course.max_num }}</span
+          ><input
+            type="number"
+            [(ngModel)]="unTeachCourseList[i].max_num"
+            *ngIf="editLine == i"
+          />
+        </div>
+      </td>
+      <td>
+        <div class="option">
+          <span>已排课</span>
         </div>
       </td>
     </tr>

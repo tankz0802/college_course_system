@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       this.cookieService.set('_role', data["role"]);
       this.router.navigateByUrl("/home/index");
     }).catch((err)=>{
-      console.log(err)
+      alert(err.error)
     })
   }
 
