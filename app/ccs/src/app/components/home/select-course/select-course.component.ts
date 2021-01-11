@@ -30,7 +30,7 @@ export class SelectCourseComponent implements OnInit {
     this.http.post('api/select_elective_course', {sid:this.sid, cid:cid}).toPromise().then((data)=>{
       this.courseList = data["data"];
     }).catch((err)=>{
-      alert(err.error);
+      alert(JSON.stringify(err.error));
     })
   }
 
@@ -39,7 +39,7 @@ export class SelectCourseComponent implements OnInit {
     this.http.post('api/cancel_elective_course', req).toPromise().then((data)=>{
       this.courseList = data["data"];
     }).catch((err)=>{
-      alert(err.error)
+      alert(JSON.stringify(err.error))
     })
   }
 

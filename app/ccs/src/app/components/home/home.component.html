@@ -1,11 +1,11 @@
 <div class="body" [ngClass]="{ 'pop-out': popFlag, 'pop-in': !popFlag }">
   <div class="routes">
-    <ul [ngClass]="{ selected: selected == '首页' }" (click)="index()">
+    <ul [ngClass]="{ selected: selected == 'index' }" (click)="index()">
       <i class="fa fa-tachometer" aria-hidden="true"></i>
       <div *ngIf="popFlag">首页</div>
     </ul>
     <ul
-      [ngClass]="{ selected: selected == '选课' }"
+      [ngClass]="{ selected: selected == 'select_course' }"
       *ngIf="role == 'student'"
       (click)="selectCourse()"
     >
@@ -13,7 +13,7 @@
       <div *ngIf="popFlag">选课</div>
     </ul>
     <ul
-      [ngClass]="{ selected: selected == '排课' }"
+      [ngClass]="{ selected: selected == 'assign_course' }"
       *ngIf="role != 'student'"
       (click)="assignCourse()"
     >
@@ -21,7 +21,7 @@
       <div *ngIf="popFlag">排课</div>
     </ul>
     <ul
-      [ngClass]="{ selected: selected == '成绩' }"
+      [ngClass]="{ selected: selected == 'grade' }"
       *ngIf="role == 'student'"
       (click)="grade()"
     >
@@ -29,20 +29,23 @@
       <div *ngIf="popFlag">成绩</div>
     </ul>
     <ul
-      [ngClass]="{ selected: selected == '我的授课' }"
+      [ngClass]="{ selected: selected == 'teach_course' }"
       *ngIf="role != 'student'"
       (click)="teachCourse()"
     >
       <i class="fa fa-book" aria-hidden="true"></i>
       <div *ngIf="popFlag">我的授课</div>
     </ul>
-    <ul [ngClass]="{ selected: selected == '课程表' }" (click)="courseTable()">
+    <ul
+      [ngClass]="{ selected: selected == 'course_table' }"
+      (click)="courseTable()"
+    >
       <i class="fa fa-table" aria-hidden="true"></i>
       <div *ngIf="popFlag">课程表</div>
     </ul>
     <ul
       *ngIf="role == 'system'"
-      [ngClass]="{ selected: selected == '学院信息' }"
+      [ngClass]="{ selected: selected == 'college_info' }"
       (click)="collegeInfo()"
     >
       <i class="fa fa-info" aria-hidden="true"></i>

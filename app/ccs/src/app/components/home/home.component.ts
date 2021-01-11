@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.role = this.cookieService.get('_role');
     this.name = this.cookieService.get('_name');
     if(this.cookieService.get('_select') == undefined) {
-      this.selected = '首页';
+      this.selected = 'index';
       this.cookieService.set('_select', this.selected)
     }else{
       this.selected = this.cookieService.get('_select');
@@ -32,43 +32,43 @@ export class HomeComponent implements OnInit {
   }
 
   index() {
-    this.selected = '首页';
+    this.selected = 'index';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/index')
   }
 
   selectCourse() {
-    this.selected = '选课';
+    this.selected = 'select_course';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/select_course')
   }
 
   assignCourse() {
-    this.selected = '排课';
+    this.selected = 'assign_course';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/assign_course')
   }
 
   grade() {
-    this.selected = '成绩';
+    this.selected = 'grade';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/grade')
   }
 
   teachCourse() {
-    this.selected = '我的授课',
+    this.selected = 'teach_course',
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/teach_course')
   }
 
   courseTable() {
-    this.selected = '课程表';
+    this.selected = 'course_table';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/course_table')
   }
 
   collegeInfo() {
-    this.selected = '学院信息';
+    this.selected = 'college_info';
     this.cookieService.set('_select', this.selected)
     this.router.navigateByUrl('/home/college_info')
   }

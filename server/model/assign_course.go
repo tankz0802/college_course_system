@@ -30,10 +30,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	//fmt.Println("老师课表")
-	//for _, item := range teacherCourseTable {
-	//	fmt.Println(item)
-	//}
+	fmt.Println("老师课表")
+	for _, item := range teacherCourseTable {
+		fmt.Println(item)
+	}
 	classCourseTable := make([]*CourseSchedule, 0)
 	for _, item := range ac.Class {
 		courseSchedule, err := GetClassCourseTable(item)
@@ -42,12 +42,18 @@ func (ac *AssignCourse) Add() (bool, error) {
 		}
 		classCourseTable = append(classCourseTable, courseSchedule...)
 	}
-	//fmt.Println("班级课表")
-	//for _, item := range classCourseTable {
-	//	fmt.Println(item)
-	//}
+	if len(ac.Class) != 0 {
+		fmt.Println("班级课表")
+		for _, item := range classCourseTable {
+			fmt.Println(item)
+		}
+	}
 	if course.Duration == 64 {
 		assignCourseScheduleList := GetDurationEquals64Rule(ac)
+		fmt.Println("按照偏好生成的排课规则:")
+		for _, item := range assignCourseScheduleList {
+			fmt.Println(item[0], item[1])
+		}
 		for _, item := range assignCourseScheduleList {
 			if AssignCourseHasConflict(item[0], teacherCourseTable, classCourseTable) &&
 				AssignCourseHasConflict(item[1], teacherCourseTable, classCourseTable) {
@@ -64,6 +70,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 	}else if course.Duration == 48 {
 		if SelectDuration48Rule(ac) == 1 {
 			assignCourseScheduleList := GetDurationEquals48Rule1(ac)
+			fmt.Println("按照偏好生成的排课规则:")
+			for _, item := range assignCourseScheduleList {
+				fmt.Println(item)
+			}
 			for _, item := range assignCourseScheduleList {
 				fmt.Println(item)
 				if AssignCourseHasConflict(item, teacherCourseTable, classCourseTable) {
@@ -79,6 +89,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 			return false, errors.New("课程冲突较多,请选择新的规则")
 		}else{
 			assignCourseScheduleList := GetDurationEquals48Rule2(ac)
+			fmt.Println("按照偏好生成的排课规则:")
+			for _, item := range assignCourseScheduleList {
+				fmt.Println(item[0], item[1])
+			}
 			for _, item := range assignCourseScheduleList {
 				fmt.Println(item[0], item[1])
 				if AssignCourseHasConflict(item[0], teacherCourseTable, classCourseTable) &&
@@ -97,6 +111,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 	}else if course.Duration == 32 {
 		if SelectDuration32Rule(ac) == 1 {
 			assignCourseScheduleList := GetDurationEquals32Rule1(ac)
+			fmt.Println("按照偏好生成的排课规则:")
+			for _, item := range assignCourseScheduleList {
+				fmt.Println(item)
+			}
 			for _, item := range assignCourseScheduleList {
 				if AssignCourseHasConflict(item, teacherCourseTable, classCourseTable) {
 					continue
@@ -110,6 +128,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 			return false, errors.New("课程冲突较多,请选择新的规则")
 		}else{
 			assignCourseScheduleList := GetDurationEquals32Rule2(ac)
+			fmt.Println("按照偏好生成的排课规则:")
+			for _, item := range assignCourseScheduleList {
+				fmt.Println(item[0], item[1])
+			}
 			for _, item := range assignCourseScheduleList {
 				if AssignCourseHasConflict(item[0], teacherCourseTable, classCourseTable) &&
 					AssignCourseHasConflict(item[1], teacherCourseTable, classCourseTable) {
@@ -125,6 +147,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 		}
 	}else if course.Duration == 16 {
 		assignCourseScheduleList := GetDurationEquals16Rule(ac)
+		fmt.Println("按照偏好生成的排课规则:")
+		for _, item := range assignCourseScheduleList {
+			fmt.Println(item)
+		}
 		for _, item := range assignCourseScheduleList {
 			if AssignCourseHasConflict(item, teacherCourseTable, classCourseTable) {
 				continue
@@ -139,6 +165,10 @@ func (ac *AssignCourse) Add() (bool, error) {
 		return false, errors.New("课程冲突较多,请选择新的规则")
 	}else if course.Duration == 8 {
 		assignCourseScheduleList := GetDurationEquals8Rule(ac)
+		fmt.Println("按照偏好生成的排课规则:")
+		for _, item := range assignCourseScheduleList {
+			fmt.Println(item)
+		}
 		for _, item := range assignCourseScheduleList {
 			if AssignCourseHasConflict(item, teacherCourseTable, classCourseTable) {
 				continue
