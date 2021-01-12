@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     }else{
       this.selected = this.cookieService.get('_select');
     }
+    this.router.navigateByUrl('/home/'+this.selected)
   }
 
   index() {
@@ -74,10 +75,10 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    this.cookieService.delete('_id');
+    this.cookieService.delete('_select');
     this.cookieService.delete('_role');
+    this.cookieService.delete('_id');
     this.cookieService.delete('_name');
-    this.cookieService.delete('_delete');
     this.router.navigateByUrl('/login')
   }
 

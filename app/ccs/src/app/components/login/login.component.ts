@@ -21,22 +21,25 @@ export class LoginComponent implements OnInit {
   
 
   ngOnInit(): void {
-    if(this.cookieService.check('_id') && this.cookieService.check('_role') && this.cookieService.check('_name')) {
-
-      this.router.navigateByUrl('home/'+this.cookieService.get('_select'));
-    }
+    this.cookieService.delete('_id');
+    this.cookieService.delete('_name');
+    this.cookieService.delete('_role');
+    this.cookieService.delete('_select');
   }
 
   login() {
+    this.cookieService.delete('_id');
+    this.cookieService.delete('_name');
+    this.cookieService.delete('_role');
+    this.cookieService.delete('_select');
     this.http.post('api/login', this.loginForm).toPromise().then((data)=>{
-      console.log(111)
-      this.cookieService.set('_id', this.loginForm.id,);
+      this.cookieService.set('_id', this.loginForm.id);
       this.cookieService.set('_name', data["name"]);
       this.cookieService.set('_role', data["role"]);
       this.cookieService.set('_select', 'index');
       this.router.navigateByUrl("/home/index");
     }).catch((err)=>{
-      alert(err.error)
+      alert(JSON.stringify(err.error))
     })
   }
 

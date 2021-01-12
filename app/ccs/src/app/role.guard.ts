@@ -12,7 +12,7 @@ export class RoleGuard implements CanActivate {
 
   canActivate(): boolean  {
     let role = this.cookieService.get('_role');
-    if(role === "" || role == undefined) {
+    if(role == "" || role == undefined) {
       return false;
     }
     return true;
