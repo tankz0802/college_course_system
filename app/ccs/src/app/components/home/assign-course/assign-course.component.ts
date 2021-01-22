@@ -155,5 +155,4 @@ export class AssignCourseComponent implements OnInit {
       alert(JSON.stringify(err.error));
     })
   }
-
 }
