@@ -15,5 +15,5 @@ then
     sudo systemctl start docker
 else
     sudo apt-get update
-    echo 'jenkins'
+    echo 'test jenkins'
 fi
