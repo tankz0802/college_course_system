@@ -16,4 +16,5 @@ then
 else
     sudo apt-get update
     echo 'test jenkins'
+    echo 'hello world'
 fi
