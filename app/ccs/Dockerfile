@@ -1,8 +1,9 @@
-FROM node:10-alpine as builder
+FROM node:12-alpine as builder
 WORKDIR /usr/src/app
 
 COPY . .
 RUN npm config set registry http://registry.npm.taobao.org/
+RUN cnpm install -g @angular/cli@9.0.7
 RUN cnpm install
 RUN cnpm run build:prod
 

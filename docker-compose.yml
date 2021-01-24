@@ -1,29 +1,27 @@
-version '2'
+version: "2"
 service:
   app:
     build: ./app/ccs
     container_name: ccs-app
-    depends_on: 
+    depends_on:
       - server
-    ports: 
-      "4200:4200"
+    ports:
+      - "4200:4200"
 
   server:
     build: ./server
     container_name: ccs-server
     depends_on:
-    - db
-    ports: 
-      "12345:12345"
+      - db
+    ports:
+      - "12345:12345"
 
   db:
     image: mysql:5.7
     container_name: ccs-mysql
-    environment: 
+    environment:
       MYSQL_ROOT_PASSWORD: 123456
-    ports: 
-     - "3306:3306"
-    volumes: 
-     - ./doc/ccs.sql:/docker-entrypoint-initdb.d/
-      
-
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./doc/ccs.sql:/docker-entrypoint-initdb.d/
