@@ -1,5 +1,5 @@
 version: "2"
-service:
+services:
   app:
     build: ./app/ccs
     container_name: ccs-app
