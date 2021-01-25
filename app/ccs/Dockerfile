@@ -1,3 +1,4 @@
+# 暂时不用该Dockerfile构建,因为在云服务器上对项目进行编译打包会把内存撑爆
 FROM node:12-alpine as builder
 WORKDIR /usr/src/app
 
