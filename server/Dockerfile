@@ -1,4 +1,4 @@
-FROM golang:alpine-latest as build
+FROM golang:alpine as build
 
 ENV GOPROXY https://goproxy.io
 ENV GO111MODULE on
@@ -17,7 +17,7 @@ RUN GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -installsuffix cgo -o ccs
 
 FROM scratch as prod
 
-COPY --from=build /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 COPY --from=build /go/release/ccs /
-COPY --from=build /go/release/config ./config
+COPY --from=build /go/release/config /config
+COPY --from=build /go/release/assets /assets
 CMD ["/ccs"]

@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    image: nginx:latest-alpine
+    image: nginx:latest
     container_name: ccs-app
     depends_on:
       - server
@@ -27,5 +27,4 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db:/db
-    entrypoint: ./db/init.sh
+      - ./db:/docker-entrypoint-initdb.d

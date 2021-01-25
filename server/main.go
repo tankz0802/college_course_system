@@ -13,6 +13,7 @@ import (
 func main() {
 	gin.DefaultWriter = colorable.NewColorableStdout()
 	config.Init()
+	fmt.Println("password:", config.MYSQL_PASSWORD)
 	db.Init()
 	utils.InitData()
 	router := gin.Default()
