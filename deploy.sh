@@ -38,7 +38,6 @@ then
         exit -1
     fi
 fi
-local_ip=$(ifconfig | grep '\<inet\>'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1')
 sed -i "s/ip/$ip/g" ./app/ccs/proxy.config.json
 sed -i "s/ip/$ip/g" ./app/ccs/nginx.conf
 sed -i "s/ip/$ip/g" ./server/config/config.ini
