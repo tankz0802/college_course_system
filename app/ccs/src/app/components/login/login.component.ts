@@ -25,11 +25,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log('login');
     this.http.post('api/login', this.loginForm).toPromise().then((data)=>{
-      this.cookieService.set('sessionuser', this.loginForm.id , 1 , '/', '/', false, "Lax");
-      this.cookieService.set('_name', data["name"], 1 , '/', '/', false, "Lax");
-      this.cookieService.set('_role', data["role"], 1 , '/', '/', false, "Lax");
-      this.cookieService.set('_select', 'index', 1 , '/', '/', false, "Lax");
+      this.cookieService.set('sessionuser', this.loginForm.id, 1, '/', null, false, "Lax");
+      this.cookieService.set('_name', data["name"], 1 , '/', null, false, "Lax");
+      this.cookieService.set('_role', data["role"], 1 , '/', null, false, "Lax");
+      this.cookieService.set('_select', 'index', 1 , '/', null, false, "Lax");
       this.router.navigateByUrl("/home/index");
     }).catch((err)=>{
       alert(JSON.stringify(err.error))

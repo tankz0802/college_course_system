@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     this.name = this.cookieService.get('_name');
     if(this.cookieService.get('_select') == undefined) {
       this.selected = 'index';
-      this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+      this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     }else{
       this.selected = this.cookieService.get('_select');
     }
@@ -34,51 +34,51 @@ export class HomeComponent implements OnInit {
 
   index() {
     this.selected = 'index';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/index')
   }
 
   selectCourse() {
     this.selected = 'select_course';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/select_course')
   }
 
   assignCourse() {
     this.selected = 'assign_course';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/assign_course')
   }
 
   grade() {
     this.selected = 'grade';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/grade')
   }
 
   teachCourse() {
     this.selected = 'teach_course',
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/teach_course')
   }
 
   courseTable() {
     this.selected = 'course_table';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/course_table')
   }
 
   collegeInfo() {
     this.selected = 'college_info';
-    this.cookieService.set('_select', this.selected, 1 , '/', '/', false, "Lax")
+    this.cookieService.set('_select', this.selected, 1 , '/', null, false, "Lax")
     this.router.navigateByUrl('/home/college_info')
   }
 
   logout() {
-    this.cookieService.delete('_select', '/', '/');
-    this.cookieService.delete('_role', '/', '/');
-    this.cookieService.delete('_id', '/', '/');
-    this.cookieService.delete('_name', '/', '/');
+    this.cookieService.delete('_select', '/', null);
+    this.cookieService.delete('_role', '/', null);
+    this.cookieService.delete('_id', '/', null);
+    this.cookieService.delete('_name', '/', null);
     this.router.navigateByUrl('/login');
   }
 
