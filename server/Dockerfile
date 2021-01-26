@@ -15,7 +15,7 @@ ADD . .
 
 RUN GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -installsuffix cgo -o ccs main.go
 
-FROM scratch as prod
+FROM ubuntu as prod
 
 COPY --from=build /go/release/ccs /
 COPY --from=build /go/release/config /config
