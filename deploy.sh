@@ -38,9 +38,9 @@ then
         exit -1
     fi
 fi
-sed -i "s/ip/$ip/g" ./app/ccs/proxy.config.json
-sed -i "s/ip/$ip/g" ./app/ccs/nginx.conf
-sed -i "s/ip/$ip/g" ./server/config/config.ini
+sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/proxy.config.json
+sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/nginx.conf
+sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./server/config/config.ini
 ufw disable
 touch /etc/docker/daemon.json
 echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/daemon.json
