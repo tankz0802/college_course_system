@@ -3,9 +3,8 @@
 if ! type docker >/dev/null 2>&1
 then
     apt-get remove docker docker-engine docker.io
-    apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
     apt-get update
-    $ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  apt-key add -
+    curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  apt-key add -
     add-apt-repository \
     "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
     $(lsb_release -cs) \
