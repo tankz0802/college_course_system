@@ -39,3 +39,5 @@ echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/
 systemctl daemon-reload
 systemctl restart docker
 docker-compose up -d
+docker start ccs-server
+echo "部署完成,请访问"$local_ip":4200进行预览!"
