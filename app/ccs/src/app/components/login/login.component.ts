@@ -21,22 +21,15 @@ export class LoginComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.cookieService.delete('_id');
-    this.cookieService.delete('_name');
-    this.cookieService.delete('_role');
-    this.cookieService.delete('_select');
+    
   }
 
   login() {
-    this.cookieService.delete('_id');
-    this.cookieService.delete('_name');
-    this.cookieService.delete('_role');
-    this.cookieService.delete('_select');
     this.http.post('api/login', this.loginForm).toPromise().then((data)=>{
-      this.cookieService.set('_id', this.loginForm.id);
-      this.cookieService.set('_name', data["name"]);
-      this.cookieService.set('_role', data["role"]);
-      this.cookieService.set('_select', 'index');
+      this.cookieService.set('sessionuser', this.loginForm.id , 1 , '/', '/', false, "Lax");
+      this.cookieService.set('_name', data["name"], 1 , '/', '/', false, "Lax");
+      this.cookieService.set('_role', data["role"], 1 , '/', '/', false, "Lax");
+      this.cookieService.set('_select', 'index', 1 , '/', '/', false, "Lax");
       this.router.navigateByUrl("/home/index");
     }).catch((err)=>{
       alert(JSON.stringify(err.error))
