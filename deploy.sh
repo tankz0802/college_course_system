@@ -28,5 +28,5 @@ else
     echo 'docker-compose is installed'
 fi
 
-chmod 777 ./app/ccs/dist/ccs
+chmod 777 ./app/ccs/dist/ccs/*
 docker-compose up -d
