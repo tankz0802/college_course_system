@@ -28,11 +28,21 @@ else
 fi
 
 ########### 替换IP #############
+ip=$(ip -o -4 addr show eth0 | awk '{ split($4, ip_addr, "/"); print ip_addr[1] }')
+if test -z "$ip"
+then
+    ip=$(ip -o -4 addr show ens33 | awk '{ split($4, ip_addr, "/"); print ip_addr[1] }')
+    if test -z "$ip"
+    then
+        echo "网络配置错误"
+        exit -1
+    fi
+fi
 local_ip=$(ifconfig | grep '\<inet\>'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1')
-sed -i "s/ip/$local_ip/g" ./app/ccs/proxy.config.json
-sed -i "s/ip/$local_ip/g" ./app/ccs/nginx.conf
-sed -i "s/ip/$local_ip/g" ./server/config/config.ini
-
+sed -i "s/ip/$ip/g" ./app/ccs/proxy.config.json
+sed -i "s/ip/$ip/g" ./app/ccs/nginx.conf
+sed -i "s/ip/$ip/g" ./server/config/config.ini
+et ff=unix
 ufw disable
 touch /etc/docker/daemon.json
 echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/daemon.json
@@ -40,4 +50,4 @@ systemctl daemon-reload
 systemctl restart docker
 docker-compose up -d
 docker start ccs-server
-echo "部署完成,请访问"$local_ip":4200进行预览!"
+echo "部署完成,请访问"$ip":4200进行预览!"
