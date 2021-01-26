@@ -62,12 +62,12 @@
       <div class="avatar" (click)="showSelectFLag = !showSelectFLag">
         <img src="assets/img/avatar.jpg" alt="" />
         <ul *ngIf="showSelectFLag">
-          <li>
-            <a
-              href="https://github.com/TankLQY/college_course_system"
-              target="_blank"
-            ></a
-            ><i class="fa fa-github" aria-hidden="true"></i><span>Github</span>
+          <li
+            (click)="
+              goToGitHub('https://github.com/TankLQY/college_course_system')
+            "
+          >
+            <i class="fa fa-github" aria-hidden="true"></i><span>Github</span>
           </li>
           <li (click)="logout()">
             <i class="fa fa-sign-out" aria-hidden="true"></i

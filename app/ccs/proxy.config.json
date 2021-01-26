@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://106.52.211.246:12345/ccs/",
+    "target": "http://ip:12345/ccs/",
     "secure": false,
     "pathRewrite": {
       "^/api": ""

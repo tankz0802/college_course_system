@@ -82,4 +82,8 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  goToGitHub(url:string) {
+    window.open(url, "_blank");
+  }
+
 }
