@@ -41,7 +41,6 @@ fi
 sed -i "s/ip/$ip/g" ./app/ccs/proxy.config.json
 sed -i "s/ip/$ip/g" ./app/ccs/nginx.conf
 sed -i "s/ip/$ip/g" ./server/config/config.ini
-et ff=unix
 ufw disable
 touch /etc/docker/daemon.json
 echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/daemon.json
