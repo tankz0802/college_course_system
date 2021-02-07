@@ -18,11 +18,20 @@ sudo apt-get update
 ######### 关闭防火墙 ###########
 sudo ufw disable
 
+######### 安装curl ############
+sudo apt-get install curl
+
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
 then
     sudo apt-get remove docker docker-engine docker.io
     sudo apt-get update
+    sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
     sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  apt-key add -
     add-apt-repository \
     "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
