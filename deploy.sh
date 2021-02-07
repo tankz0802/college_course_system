@@ -20,14 +20,14 @@ sudo apt-get update
 sudo ufw disable
 
 ######### 安装curl ############
-sudo apt-get install curl
+sudo apt-get -y install curl
 
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
 then
     sudo apt-get remove docker docker-engine docker.io
     sudo apt-get update
-    sudo apt-get install \
+    sudo apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -39,7 +39,7 @@ then
     $(lsb_release -cs) \
     stable"
     sudo apt-get update
-    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
     sudo systemctl enable docker
     sudo systemctl start docker
     echo 'docker install successfully'
@@ -48,9 +48,9 @@ else
 fi
 
 ####### 安装docker-compose ######
-if !type docker-compose >/dev/null 2>&1
+if ! type docker-compose >/dev/null 2>&1
 then
-    sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    sudo curl -L https://download.fastgit.org/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 else
     echo 'docker-compose is installed'
