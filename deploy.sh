@@ -1,18 +1,35 @@
 #!/bin/sh
+######### 配置阿里镜像源 ########
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+echo 'deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+    deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+    deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+    deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+    deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+    deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse' > /etc/apt/sources.list
+sudo apt-get update
+
+######### 关闭防火墙 ###########
+sudo ufw disable
+
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
 then
-    apt-get remove docker docker-engine docker.io
-    apt-get update
-    curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  apt-key add -
+    sudo apt-get remove docker docker-engine docker.io
+    sudo apt-get update
+    sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  apt-key add -
     add-apt-repository \
     "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
-    apt-get update
-    apt-get install docker-ce docker-ce-cli containerd.io
-    systemctl enable docker
-    systemctl start docker
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo systemctl enable docker
+    sudo systemctl start docker
     echo 'docker install successfully'
 else
     echo 'docker is installed'
@@ -21,8 +38,8 @@ fi
 ####### 安装docker-compose ######
 if !type docker-compose >/dev/null 2>&1
 then
-    curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 else
     echo 'docker-compose is installed'
 fi
@@ -41,11 +58,11 @@ fi
 sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/proxy.config.json
 sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/nginx.conf
 sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./server/config/config.ini
-ufw disable
+
 touch /etc/docker/daemon.json
 echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/daemon.json
-systemctl daemon-reload
-systemctl restart docker
-docker-compose up -d
-docker start ccs-server
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo docker-compose up -d
+sudo docker start ccs-server
 echo "部署完成,请访问"$ip":4200进行预览!"
