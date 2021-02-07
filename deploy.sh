@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 ######### 配置阿里镜像源 ########
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 echo 
@@ -77,3 +78,4 @@ sudo systemctl restart docker
 sudo docker-compose up -d
 sudo docker start ccs-server
 echo "部署完成,请访问"$ip":4200进行预览!"
+set +e
