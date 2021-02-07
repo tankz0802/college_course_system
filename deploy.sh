@@ -50,7 +50,7 @@ fi
 ####### 安装docker-compose ######
 if ! type docker-compose >/dev/null 2>&1
 then
-    sudo curl -L https://download.fastgit.org/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.28.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 else
     echo 'docker-compose is installed'
