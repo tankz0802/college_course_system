@@ -16,12 +16,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 EOF
 sudo apt-get update
 
-######### 关闭防火墙 ###########
-sudo ufw disable
-
-######### 安装curl ############
-sudo apt-get -y install curl
-
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
 then
@@ -47,35 +41,14 @@ else
     echo 'docker is installed'
 fi
 
-####### 安装docker-compose ######
-if ! type docker-compose >/dev/null 2>&1
-then
-    sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.28.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-else
-    echo 'docker-compose is installed'
-fi
-
-########### 替换IP #############
-ip=$(ip -o -4 addr show eth0 | awk '{ split($4, ip_addr, "/"); print ip_addr[1] }')
-if test -z "$ip"
-then
-    ip=$(ip -o -4 addr show ens33 | awk '{ split($4, ip_addr, "/"); print ip_addr[1] }')
-    if test -z "$ip"
-    then
-        echo "网络配置错误"
-        exit -1
-    fi
-fi
-sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/proxy.config.json
-sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./app/ccs/nginx.conf
-sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$ip/g" ./server/config/config.ini
-
 touch /etc/docker/daemon.json
-echo "{\"registry-mirrors\":[\"https://hub-mirror.c.163.com/\"]}" > /etc/docker/daemon.json
+echo "{\"registry-mirrors\":[\"https://mirror.ccs.tencentyun.com\"]}" > /etc/docker/daemon.json
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-sudo docker-compose up -d
-sudo docker start ccs-server
-echo "部署完成,请访问"$ip":4200进行预览!"
+sudo docker build -t ccs .
+sudo docker run -d --privileged=true --name=ccs -p 4200:4200 ccs
+sudo docker exec -it ccs /bin/sh
+docker-compose up
+exit
+echo "部署完成,请访问127.0.0.1:4200进行预览!"
 set +e
