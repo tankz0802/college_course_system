@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+######### 安装docker ###########
+if ! type docker >/dev/null 2>&1
+then
 ######### 配置阿里镜像源 ########
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 cat>/etc/apt/sources.list<<EOF
@@ -15,10 +18,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted univer
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 EOF
 sudo apt-get update
-
-######### 安装docker ###########
-if ! type docker >/dev/null 2>&1
-then
     sudo apt-get remove docker docker-engine docker.io
     sudo apt-get update
     sudo apt-get -y install \
@@ -47,8 +46,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo docker build -t ccs .
 sudo docker run -d --privileged=true --name=ccs -p 4200:4200 ccs
-sudo sleep 1
+sudo sleep 3
 sudo docker exec -it ccs /bin/sh -c "docker-compose up -d"
-exit
 echo "部署完成,请访问127.0.0.1:4200进行预览!"
 set +e

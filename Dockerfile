@@ -1,4 +1,5 @@
 FROM docker:dind
+WORKDIR /
 EXPOSE 4200
 RUN mkdir -p /etc/docker
 RUN > /etc/docker/daemon.json
