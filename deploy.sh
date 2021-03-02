@@ -13,7 +13,7 @@ else
 fi
 
 touch /etc/docker/daemon.json
-echo "{\"registry-mirrors\":[\"https://mirror.ccs.tencentyun.com\"]}" > /etc/docker/daemon.json
+echo "{\"registry-mirrors\":[\"https://mirror.ccs.tencentyun.com\",\"https://hub-mirror.c.163.com\"]}" > /etc/docker/daemon.json
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo docker build -t ccs .
