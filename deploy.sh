@@ -47,8 +47,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo docker build -t ccs .
 sudo docker run -d --privileged=true --name=ccs -p 4200:4200 ccs
-sudo docker exec -it ccs /bin/sh
-docker-compose up
+sudo sleep 1
+sudo docker exec -it ccs /bin/sh -c "docker-compose up -d"
 exit
 echo "部署完成,请访问127.0.0.1:4200进行预览!"
 set +e

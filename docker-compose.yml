@@ -4,9 +4,6 @@ services:
     build: ./app/ccs
     image: ccs/app
     container_name: ccs-app
-    networks:
-      ccs-network:
-        ipv4_address: 192.168.1.10
     depends_on:
       - server
     ports:
@@ -16,9 +13,9 @@ services:
     build: ./server
     image: ccs/server
     container_name: ccs-server
-    networks:
-      ccs-network:
-        ipv4_address: 192.168.1.20
+    dns:
+      - 119.29.29.29
+      - 180.76.76.76
     depends_on:
       db:
         condition: service_healthy
@@ -34,33 +31,8 @@ services:
       - "3306:3306"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
-    networks:
-      ccs-network:
-        ipv4_address: 192.168.1.30
     healthcheck:
       test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "localhost",
-          "-uroot",
-          "-p$$MYSQL_ROOT_PASSWORD",
-        ]
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
       timeout: 20s
       retries: 10
-
-networks:
-    ccs-network:
-        # use the bridge driver, but enable IPv6
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "true"
-        ipam:
-            driver: default
-            config:
-                - subnet: 192.168.1.0/24
-                gateway: 192.168.1.0
-                - subnet: "2001:3984:3989::/64"
-                gateway: "2001:3984:3989::1"
