@@ -1,8 +1,14 @@
 #!/bin/sh
 set -e
+######## 安装curl #############
+sudo apt install curl
+
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
 then
+    echo "docker is uninstall"
+    echo "installing docker..."
+    curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
     curl -fsSL get.docker.com -o get-docker.sh
     sudo sh get-docker.sh --mirror Aliyun
     sudo systemctl enable docker
