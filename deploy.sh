@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 ######## 安装curl #############
-sudo apt install curl
+sudo apt install -y curl
 
 ######### 安装docker ###########
 if ! type docker >/dev/null 2>&1
